@@ -1,0 +1,47 @@
+name: Proponer una mejora
+description: Expón una necesidad y una propuesta para el producto o la comunidad.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Necesidad
+      description: ¿Qué problema o necesidad de la comunidad resolvería?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Propuesta
+      description: Describe el resultado deseado sin exigir una solución técnica concreta.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Criterios de aceptación
+      description: ¿Cómo sabríamos que la mejora funciona?
+    validations:
+      required: false
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área aproximada
+      options:
+        - Producto y experiencia
+        - Backend y API
+        - Interfaz web
+        - Privacidad y seguridad
+        - Comunidad y moderación
+        - Documentación y contribución
+        - Función futura
+    validations:
+      required: true
+  - type: checkboxes
+    id: reviewed
+    attributes:
+      label: Alcance
+      options:
+        - label: He revisado el roadmap y entiendo que la propuesta debe priorizarse antes de implementarse.
+          required: true
