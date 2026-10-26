@@ -34,7 +34,7 @@ El desarrollo se plantea como un recorrido: primero el feed; después, los espac
 
 ~~~mermaid
 flowchart LR
-    Feed["Feed:<br/>     Hilos       Fotos       Videos"]
+    Feed["Feed:<br/>  Hilos   Fotos  Videos"]
     Profile["Perfil:<br/>Perfiles temáticos"]
     Tables["Mesas:<br/>Oración   Estudio bíblico"]
     Rooms["Salas:<br/>Proyectos    Juegos    Temas libres"]
