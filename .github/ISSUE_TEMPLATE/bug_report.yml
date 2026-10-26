@@ -1,0 +1,47 @@
+name: Reportar un problema
+description: Reporta un error reproducible en el proyecto.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Gracias por ayudar. No incluyas contraseñas, tokens ni datos personales."
+  - type: textarea
+    id: summary
+    attributes:
+      label: ¿Qué ocurre?
+      description: Describe el comportamiento observado.
+      placeholder: Explica el problema con claridad.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Pasos para reproducir
+      description: Pasos mínimos para observar el error.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportamiento esperado
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Entorno y versión
+      description: Sistema, navegador, versión o commit si se conoce.
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Mensaje de error o evidencia
+      description: Elimina credenciales y datos privados antes de pegar registros.
+    validations:
+      required: false
