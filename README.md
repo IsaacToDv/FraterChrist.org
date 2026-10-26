@@ -33,7 +33,7 @@ Una red social donde hermanos en cristo en todo el mundo puedan publicar conteni
 El desarrollo se plantea como un recorrido: primero el feed; después, los espacios personales y comunitarios.
 
 ~~~mermaid
-flowchart TD
+flowchart LR
     Feed["Feed · Primera etapa<br/>Hilos · Fotos · Videos"]
     Profile["Perfil"]
     Tables["Mesas<br/>Oración · Estudio bíblico"]
@@ -41,8 +41,8 @@ flowchart TD
 
     Feed --> Profile --> Tables --> Rooms
 
-    classDef first fill:#6D28D9,stroke:#5B21B6,color:#FFFFFF,stroke-width:2px;
-    classDef next fill:#F3E8FF,stroke:#A78BFA,color:#3B0764,stroke-width:1.5px;
+    classDef first fill:#E5EAF0,stroke:#9AA7B5,color:#273444,stroke-width:1.5px;
+    classDef next fill:#F5F6F8,stroke:#C6CDD5,color:#374151,stroke-width:1px;
     class Feed first;
     class Profile,Tables,Rooms next;
 ~~~
