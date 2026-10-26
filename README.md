@@ -34,7 +34,7 @@ El desarrollo se plantea como un recorrido: primero el feed; después, los espac
 
 ~~~mermaid
 flowchart TD
-    Feed["**Feed · primera etapa**<br/>Hilos · Fotos · Videos"]
+    Feed["Feed · Primera etapa<br/>Hilos · Fotos · Videos"]
     Profile["Perfil"]
     Tables["Mesas<br/>Oración · Estudio bíblico"]
     Rooms["Salas temáticas<br/>Juegos bíblicos · Peliculas · Temas libres"]
@@ -136,4 +136,6 @@ Para que la colaboración sea respetuosa y segura, consulta el [Código de condu
 
 ---
 
-<p align="center"><sub>Colosenses 3:17</sub></p>
+<p align="center"><sub>Y todo lo que hacéis, sea de palabra o de hecho, hacedlo todo en el nombre del Señor Jesús,
+  dando gracias a Dios Padre por medio de él
+— Colosenses 3:17, RVR1960</sub></p>
