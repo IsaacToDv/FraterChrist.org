@@ -1,8 +1,8 @@
 <h1 align="center">FraterChrist.org</h1>
 
 <p align="center">
-  <strong>Una comunidad cristiana para compartir, aprender y crecer juntos.</strong><br>
-  Un proyecto open source que une publicaciones, oración, estudio bíblico y salas colaborativas.
+  <strong>Pensada para la Comunión, Edificación y la gran Comisión, esto es FraterChrist.</strong><br>
+  Un proyecto de red social open source para Hilos (Comunión), Mesas (Edificación) y Salas colaborativas (Comisión).
 </p>
 
 <p align="center">
@@ -20,11 +20,11 @@
 
 ---
 
-> **Estado actual:** diseño y planificación. La aplicación aún no está implementada; el desarrollo comenzará por el feed.
+> **Estado actual:** diseño y planificación. El desarrollo comenzará por el feed.
 
 ## ¿Qué es FraterChrist?
 
-La idea es construir un espacio digital donde las personas puedan publicar contenido, tener perfiles, reunirse para orar o estudiar la Biblia y participar en salas con experiencias diferentes según su propósito.
+Una red social donde hermanos en cristo en todo el mundo puedan publicar contenido a través de hilos, tener perfiles temáticos, reunirse para orar o estudiar la Biblia y participar en salas colaborativas donde podrán recrearse, jugar en grupo, colaborar juntos.
 
 ## El producto
 
@@ -35,7 +35,7 @@ flowchart TD
     Feed["**Feed · primera etapa**<br/>Hilos · Fotos · Videos"]
     Profile["Perfil"]
     Tables["Mesas<br/>Oración · Estudio bíblico"]
-    Rooms["Salas temáticas<br/>Juego bíblico · Oración · Sala libre"]
+    Rooms["Salas temáticas<br/>Juegos bíblicos · Peliculas · Temas libres"]
 
     Feed --> Profile --> Tables --> Rooms
 ~~~
@@ -75,7 +75,8 @@ flowchart LR
 <details>
 <summary><strong>Solo quiero conocer el proyecto</strong></summary>
 
-Consulta el [roadmap](docs/ROADMAP.md) para ver lo que se piensa construir y el orden propuesto. Las funciones futuras son ideas de producto, no funcionalidades ya disponibles.
+Consulta el [roadmap](docs/ROADMAP.md) para ver lo que se piensa construir y el orden propuesto.
+Nota. Las funciones futuras son ideas de producto.
 </details>
 
 <details>
@@ -114,4 +115,4 @@ Para que la colaboración sea respetuosa y segura, consulta el [Código de condu
 
 ---
 
-<p align="center"><sub>Construyamos con propósito, responsabilidad y espíritu de servicio.</sub></p>
+<p align="center"><sub>Colosenses 3:17</sub></p>
