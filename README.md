@@ -12,111 +12,125 @@
 </p>
 
 <p align="center">
-  <a href="#visión">Visión</a> ·
   <a href="#producto-por-etapas">Producto</a> ·
+  <a href="#stack-propuesto">Stack</a> ·
+  <a href="#cómo-funcionarán-las-salas">Salas y LiveKit</a> ·
   <a href="docs/ROADMAP.md">Roadmap</a> ·
-  <a href="docs/ARCHITECTURE.md">Arquitectura</a> ·
   <a href="CONTRIBUTING.md">Colaborar</a>
 </p>
 
 ---
 
-> **Estado:** diseño y planificación del MVP. La aplicación todavía no está implementada. El alcance y el stack se validarán por etapas.
+> **Estado:** diseño y planificación del MVP. La aplicación todavía no está implementada; las etapas y tecnologías descritas aquí son propuestas de trabajo.
 
-## Visión
+## La idea
 
-FraterChrist busca crear un espacio digital donde la comunidad pueda compartir contenido, crecer en la fe y reunirse en experiencias centradas en la oración, el estudio bíblico y el aprendizaje. El proyecto es abierto: producto, diseño y código podrán mejorar con la colaboración de la comunidad.
+FraterChrist busca reunir publicaciones, oración, estudio bíblico y experiencias de aprendizaje en un mismo espacio. El producto se desarrollará por etapas para probar lo esencial antes de asumir la complejidad de las funciones comunitarias en tiempo real.
 
 ## Producto por etapas
 
-### 01 · Feed — primera entrega
+### 01 — Feed · primera entrega
 
-El primer objetivo es un feed cronológico donde las personas puedan compartir:
+La primera versión se centrará en un feed cronológico con:
 
 - **Hilos:** publicaciones de texto y respuestas.
 - **Fotos:** publicaciones con imágenes.
 - **Videos:** publicaciones audiovisuales.
 
-La prioridad es construir una experiencia útil y segura, con autenticación, permisos de visibilidad y herramientas básicas de reporte y moderación. Las fotos y los videos se habilitarán con límites y controles de archivos; su alcance exacto se validará durante el MVP.
+La base incluirá cuentas, permisos de visibilidad y herramientas iniciales de reporte y moderación. Las cargas de archivos tendrán límites y controles de acceso; los detalles se validarán durante el diseño del MVP.
 
-### 02 · Perfil
+### 02 — Perfil
 
-Perfiles para presentar a cada persona dentro de la comunidad y acceder a sus publicaciones. Los campos, la visibilidad y las opciones de privacidad se definirán antes de implementar esta etapa.
+Una página para cada persona y acceso a sus publicaciones. Antes de implementarla se definirán los campos, la privacidad y qué información será visible para otros usuarios.
 
-### 03 · Mesas
+### 03 — Mesas
 
-Espacios de encuentro enfocados en dos propósitos:
+Espacios para reunirse alrededor de una actividad:
 
-- **Mesa de oración:** compartir peticiones y acompañarse en oración.
-- **Mesa de estudio bíblico:** estudiar pasajes, compartir reflexiones y aprender en comunidad.
+- **Oración:** compartir peticiones y acompañarse en oración.
+- **Estudio bíblico:** estudiar pasajes, compartir reflexiones y aprender en comunidad.
 
-### 04 · Salas temáticas
+### 04 — Salas temáticas
 
-Salas con videollamada y una interfaz que se adapta a la actividad. La experiencia se diseñará por módulos, evitando desarrollar una herramienta distinta desde cero para cada temática.
+Salas con videollamada e interfaces adaptadas al propósito de la reunión.
 
-| Tipo de sala | Experiencia prevista |
+| Sala | Experiencia prevista |
 |---|---|
-| **Juego bíblico** | Entorno para crear y participar en juegos educativos basados en la Biblia, con una experiencia de creación inspirada en herramientas como Educaplay. |
-| **Oración** | Interfaz minimalista, modo silencio y una hoja para escribir peticiones de oración. |
-| **Sala libre** | Videollamada y pizarra compartida para conversar, explicar ideas o colaborar libremente. |
+| **Juego bíblico** | Crear y participar en juegos educativos basados en la Biblia, con una experiencia de autoría inspirada en herramientas como Educaplay. |
+| **Oración** | Diseño minimalista, modo silencio y hoja para registrar peticiones de oración. |
+| **Sala libre** | Videollamada y pizarra compartida para explicar ideas o colaborar. |
 
-Las salas son una etapa posterior: antes de implementarlas se evaluarán las opciones de videollamada, privacidad, moderación, accesibilidad y costo operativo.
+Las salas se construirán después de las primeras etapas. LiveKit facilitará la comunicación de audio y video en tiempo real; las interfaces temáticas y sus herramientas serán funcionalidades propias de FraterChrist.
 
 ## Stack propuesto
 
 <p align="center">
-  <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white">
-  <img alt="Django REST Framework" src="https://img.shields.io/badge/Django%20REST%20Framework-A30000?style=flat-square&logo=django&logoColor=white">
-  <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white">
-  <img alt="React" src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB">
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white">
+  <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white"></a>
+  <a href="https://www.djangoproject.com/"><img alt="Django REST Framework" src="https://img.shields.io/badge/Django%20REST%20Framework-A30000?style=flat-square&logo=django&logoColor=white"></a>
+  <a href="https://www.postgresql.org/"><img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white"></a>
+  <a href="https://react.dev/"><img alt="React" src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB"></a>
+  <a href="https://www.typescriptlang.org/"><img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"></a>
+  <a href="https://livekit.io/"><img alt="LiveKit" src="https://img.shields.io/badge/LiveKit-Realtime%20Rooms-6B4EFF?style=flat-square&logo=webrtc&logoColor=white"></a>
 </p>
 
-| Capa | Propuesta inicial |
-|---|---|
-| Backend y API | Python, Django y Django REST Framework |
-| Base de datos | PostgreSQL |
-| Interfaz web | React y TypeScript |
-| Calidad | Pruebas automatizadas y GitHub Actions |
-| Entorno de desarrollo | Docker Compose, si aporta una configuración reproducible |
+| Capa | Tecnología propuesta | Responsabilidad |
+|---|---|---|
+| Backend y API | Python, Django y Django REST Framework | Cuentas, publicaciones, permisos, mesas y reglas de producto. |
+| Datos | PostgreSQL | Usuarios, contenido, permisos, metadatos y estado persistente de las salas. |
+| Interfaz | React y TypeScript | Feed, perfiles y diseños de cada tipo de sala. |
+| Audio/video en tiempo real | LiveKit: SDK de cliente JS, componentes React y servidor LiveKit Cloud o autohospedado por decidir | Conexión de participantes, publicación de micrófono/cámara y transporte de medios. |
+| Integración de servidor | Paquete Python livekit-api | Emisión de tokens con permisos limitados y gestión de salas cuando sea necesario. |
+| Calidad y colaboración | Pruebas automatizadas, GitHub Actions y pull requests | Detectar regresiones y revisar los cambios antes de integrarlos. |
 
-La propuesta parte de un **monolito modular** para reducir complejidad y facilitar las contribuciones. No se incorporarán microservicios ni infraestructura de tiempo real hasta que una etapa los necesite. Consulta [Arquitectura y decisiones pendientes](docs/ARCHITECTURE.md).
+La propuesta empieza con un **monolito modular**. El servicio de LiveKit se encargaría del transporte de audio/video; Django seguiría siendo responsable de las cuentas, los permisos y la lógica de FraterChrist. La elección entre LiveKit Cloud y una instancia autohospedada se evaluará por costo, mantenimiento y necesidades de privacidad.
+
+## Cómo funcionarán las salas
+
+1. Una persona solicita entrar a una sala desde la interfaz de FraterChrist.
+2. Django comprueba su sesión y sus permisos para esa sala.
+3. El backend genera un token de acceso de LiveKit limitado a la identidad, sala y capacidades permitidas. El secreto de LiveKit nunca se envía al navegador.
+4. La interfaz React conecta el SDK a LiveKit para la comunicación de audio/video.
+5. La aplicación muestra la interfaz correspondiente: juego bíblico, oración o sala libre.
+
+**LiveKit no construye por sí solo las herramientas temáticas.** FraterChrist implementará el creador y estado de los juegos bíblicos, la hoja de peticiones, la experiencia de modo silencio y la pizarra. Si se necesitan acciones en tiempo real, podrán evaluarse los canales de datos de LiveKit; los datos que deban conservarse se validarán y guardarán a través del backend.
+
+Documentación: [SDK para React](https://docs.livekit.io/transport/sdk-platforms/react/), [SDK de navegador](https://github.com/livekit/client-sdk-js), [tokens y permisos](https://docs.livekit.io/frontends/reference/tokens-grants/) y [API de servidor para Python](https://docs.livekit.io/reference/python/livekit/api/).
 
 ## Empezar a colaborar
 
-Puedes explorar el proyecto, proponer mejoras o preparar tu entorno local. Como aún está en fase de planificación, revisa primero el alcance antes de empezar a implementar funcionalidades.
+El repositorio está en fase de planificación. Revisa primero el alcance y el [roadmap](docs/ROADMAP.md) antes de implementar funciones.
 
-**Opción A — Clonar el repositorio**
+**Clonar el repositorio**
 
-\`\`\`bash
+~~~
 git clone https://github.com/IsaacToDv/FraterChrist.org.git
 cd FraterChrist.org
-\`\`\`
+~~~
 
-**Opción B — Hacer un fork**
+**O hacer un fork**
 
-1. Abre el repositorio en GitHub y pulsa **Fork**.
+1. Pulsa **Fork** en GitHub.
 2. Clona tu fork:
 
-\`\`\`bash
+~~~
 git clone https://github.com/TU-USUARIO/FraterChrist.org.git
 cd FraterChrist.org
-\`\`\`
+~~~
 
-3. Consulta las [guías de contribución](CONTRIBUTING.md) y las [Issues](https://github.com/IsaacToDv/FraterChrist.org/issues) antes de proponer cambios.
+3. Revisa las [guías de contribución](CONTRIBUTING.md) y las [Issues](https://github.com/IsaacToDv/FraterChrist.org/issues).
 
 ## Documentación
 
-- [Roadmap por ciclos y criterios de aceptación](docs/ROADMAP.md)
-- [Arquitectura, stack y riesgos técnicos](docs/ARCHITECTURE.md)
+- [Roadmap por etapas y criterios de aceptación](docs/ROADMAP.md)
+- [Arquitectura, LiveKit y decisiones técnicas](docs/ARCHITECTURE.md)
 - [Guía de contribución](CONTRIBUTING.md)
 - [Código de conducta](CODE_OF_CONDUCT.md)
 - [Reporte de vulnerabilidades](SECURITY.md)
 
 ## Comunidad
 
-Los enlaces de WhatsApp y Discord en la parte superior son **marcadores de posición**. Se activarán cuando se creen los espacios oficiales.
+Los enlaces de WhatsApp y Discord de la parte superior son marcadores de posición. Se sustituirán por invitaciones oficiales cuando los espacios estén listos.
 
-FraterChrist.org se publica bajo la licencia [GNU GPL v3.0](LICENSE).
+FraterChrist.org utiliza la licencia [GNU GPL v3.0](LICENSE).
 
 <p align="center"><sub>Construyamos con propósito, responsabilidad y espíritu de servicio.</sub></p>

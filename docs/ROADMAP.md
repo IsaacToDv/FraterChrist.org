@@ -1,103 +1,97 @@
 # Roadmap de FraterChrist.org
 
-El producto se desarrollará en etapas. El orden expresa prioridades, no fechas garantizadas. Cada etapa debe cerrar con un resultado comprobable y una revisión de seguridad, calidad y alcance.
+El orden representa la prioridad del producto, no fechas garantizadas. Cada etapa debe terminar en entregables verificables y pruebas acordes al riesgo.
 
-**Estado actual:** planificación y validación del MVP. La aplicación todavía no está implementada.
+**Estado actual:** diseño y planificación. La aplicación todavía no está implementada.
 
 ## Ciclo 0 — Definir el MVP
 
-**Objetivo:** confirmar el alcance de la primera entrega y las decisiones que afectan a la arquitectura.
+- Confirmar los flujos principales del feed.
+- Definir autenticación, privacidad, reportes y moderación.
+- Revisar qué contenido necesita ser público e indexable.
+- Definir límites de archivos y requisitos de almacenamiento.
+- Documentar las decisiones abiertas del stack y convertir el trabajo acordado en Issues.
 
-- Definir los flujos principales del feed: crear, leer, responder, editar y eliminar publicaciones.
-- Definir autenticación y niveles de visibilidad.
-- Establecer reglas iniciales de reporte y moderación.
-- Decidir si las publicaciones públicas deben indexarse en buscadores.
-- Definir límites iniciales para imágenes y videos, almacenamiento y costos.
-- Registrar decisiones técnicas y convertir el trabajo validado en Issues pequeñas.
-
-**Criterios de salida**
-- El alcance del MVP y las funciones fuera de alcance están documentados.
-- Los flujos y permisos principales pueden revisarse antes de implementar.
-- Los riesgos abiertos tienen un siguiente paso concreto.
+**Salida:** alcance y criterios de aceptación revisables, riesgos identificados y siguiente paso claro para cada decisión pendiente.
 
 ## Ciclo 1 — Base técnica
 
-**Objetivo:** dejar un entorno reproducible y listo para contribuciones.
+- Preparar la estructura backend/frontend y configuración por entorno.
+- Configurar PostgreSQL y documentar el inicio local.
+- Añadir pruebas automatizadas, linting y GitHub Actions.
+- Documentar ramas, pull requests y gestión de secretos.
 
-- Preparar la estructura backend/frontend y configuración por variables de entorno.
-- Configurar PostgreSQL y documentar el arranque local.
-- Incorporar pruebas, linting y comprobaciones automáticas con GitHub Actions.
-- Definir convenciones de ramas, pull requests, dependencias y manejo de secretos.
-
-**Criterios de salida**
-- Una persona nueva puede seguir las instrucciones para iniciar el proyecto.
-- Las comprobaciones automatizadas se ejecutan en los pull requests.
-- No hacen falta credenciales personales para ejecutar las pruebas básicas.
+**Salida:** una persona colaboradora puede levantar el entorno y ejecutar las comprobaciones básicas siguiendo la documentación.
 
 ## Ciclo 2 — Feed: hilos, fotos y videos
 
-**Objetivo:** construir la primera experiencia comunitaria.
-
 - Feed cronológico con paginación.
 - Publicaciones de texto y respuestas.
-- Publicaciones con fotos y videos, sujetas a la validación del manejo de archivos.
-- Permisos comprobados en el backend.
-- Reporte de contenido y acciones básicas de moderación.
-- Pruebas de acceso, visibilidad, paginación y archivos.
+- Carga de fotos/videos con límites, validación y almacenamiento privado.
+- Visibilidad comprobada en el backend.
+- Reportes y herramientas iniciales de moderación.
 
-**Criterios de salida**
-- Las personas solo pueden acceder al contenido que sus permisos permiten.
-- Las publicaciones y respuestas respetan las reglas de visibilidad.
-- Las cargas inválidas o demasiado grandes se rechazan.
-- Los flujos esenciales tienen pruebas automatizadas.
+**Salida:** las operaciones respetan los permisos, los archivos inválidos se rechazan y los flujos críticos cuentan con pruebas.
 
 ## Ciclo 3 — Perfil
 
-**Objetivo:** permitir que cada persona tenga una presencia reconocible en la comunidad.
-
 - Definir campos y opciones de privacidad.
-- Mostrar publicaciones del perfil respetando los permisos del feed.
-- Añadir pruebas para acceso, edición y visibilidad.
+- Mostrar publicaciones respetando los permisos del feed.
+- Probar acceso y edición de perfil.
 
-**Criterios de salida**
-- La información privada no se expone por consultas directas a la API.
-- La interfaz comunica con claridad qué información es pública.
+**Salida:** los datos privados no quedan accesibles mediante consultas directas a la API.
 
-## Ciclo 4 — Mesas de oración y estudio bíblico
+## Ciclo 4 — Mesas
 
-**Objetivo:** añadir espacios organizados por propósito comunitario.
+### Mesa de oración
+- Diseñar la hoja de peticiones y su ciclo de vida.
+- Definir visibilidad, edición, borrado y audiencia de cada petición.
 
-- Definir cómo se crean, encuentran y moderan las mesas.
-- Mesa de oración con peticiones y controles de privacidad adecuados.
-- Mesa de estudio bíblico con contenido organizado para estudiar y compartir reflexiones.
-- Validar las reglas de participación, reporte y visibilidad antes de abrir espacios públicos.
+### Mesa de estudio bíblico
+- Diseñar el espacio para pasajes, reflexiones y aportes de los participantes.
+- Definir cómo organizar y moderar las contribuciones.
 
-**Criterios de salida**
-- Las reglas de acceso y moderación están documentadas y probadas.
-- Las personas comprenden quién puede ver sus aportes.
+**Salida:** las reglas de privacidad y moderación quedan documentadas y probadas antes de abrir mesas comunitarias.
 
-## Ciclo 5 — Salas temáticas y comunicación en tiempo real
+## Ciclo 5 — Prototipo LiveKit
 
-**Objetivo:** evaluar e implementar salas de videollamada cuya interfaz se adapte a la actividad.
+Antes de implementar las salas completas, validar la integración de audio/video con un prototipo pequeño.
 
-**Tipos de sala previstos**
-- **Juego bíblico:** interfaz para crear y jugar actividades educativas basadas en la Biblia.
-- **Oración:** interfaz minimalista, modo silencio y hoja de peticiones.
-- **Sala libre:** videollamada y pizarra colaborativa.
+- Integrar en React los paquetes livekit-client y @livekit/components-react.
+- Crear en Django un endpoint autenticado para emitir tokens de LiveKit con permisos limitados.
+- Usar livekit-api desde el backend cuando sea necesario gestionar las salas.
+- Probar dos o más participantes, entrada autorizada, micrófono/cámara, desconexión y reconexión.
+- Comparar LiveKit Cloud con autohospedado en costo, operación, privacidad y límites.
 
-Antes de implementar se debe comparar una solución de videollamada gestionada con una arquitectura propia basada en WebRTC, considerando señalización, TURN, moderación, privacidad, accesibilidad, límites y costo. La pizarra y el sistema de juegos tendrán criterios de alcance separados.
+**Salida:** dos participantes pueden conectarse con credenciales emitidas por el backend; no se expone el secreto; los permisos y los costos aproximados están documentados.
 
-**Criterios de salida**
-- La opción elegida tiene un costo y unos límites operativos conocidos.
-- Los permisos de sala, controles de participantes y mecanismos de reporte están definidos.
-- La experiencia básica se prueba con una cantidad limitada de participantes antes de ampliar su disponibilidad.
+## Ciclo 6 — Salas temáticas
 
-## Condiciones para cerrar una etapa
+Reutilizar la capa común de conexión LiveKit y desarrollar las experiencias de FraterChrist por separado.
 
-- Cumple los criterios de aceptación de sus Issues.
-- Incluye pruebas acordes al riesgo.
-- La documentación refleja el comportamiento real.
-- Se revisa mediante pull request.
-- Las limitaciones conocidas quedan registradas.
+### Juego bíblico
+- Herramientas para crear partidas educativas y responder preguntas.
+- Validación de respuestas, reglas, permisos del anfitrión y resultados desde el backend.
+- Evaluar canales de datos LiveKit solo para eventos en tiempo real que lo necesiten.
 
-Las etapas pueden dividirse en entregas menores. No se deben comenzar funciones posteriores solo porque estén descritas aquí: primero se valida la etapa actual y se revisa la retroalimentación.
+### Oración
+- Interfaz minimalista.
+- Controles y estado de micrófono claros para el modo silencio.
+- Hoja de peticiones con privacidad explícita y acciones de moderación.
+
+### Sala libre
+- Videollamada y pizarra compartida.
+- Definir sincronización, permisos de edición e historial persistente.
+- Evaluar canales de datos para eventos efímeros y backend para datos que deban conservarse.
+
+**Salida:** cada modalidad tiene pruebas de permisos, controles comprensibles, mecanismos de reporte y una definición clara de qué datos se guardan.
+
+## Cierre de etapa
+
+- Cumplir criterios de aceptación de las Issues.
+- Añadir pruebas para los riesgos relevantes.
+- Revisar mediante pull request.
+- Actualizar la documentación para reflejar lo que realmente funciona.
+- Registrar limitaciones conocidas y costos operativos.
+
+No se deben desplegar salas abiertas hasta probar la integración, los permisos, la moderación y la operación de LiveKit.
