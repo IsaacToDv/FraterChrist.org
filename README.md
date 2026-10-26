@@ -37,7 +37,7 @@ flowchart LR
     Feed["Feed:<br/>Hilos · Fotos · Videos"]
     Profile["Perfil:<br/>Perfiles temáticos"]
     Tables["Mesas:<br/>Oración · Estudio bíblico"]
-    Rooms["Salas Colaborativas:<br/>Proyectos Evangelisticos · Juegos · Temas libres"]
+    Rooms["Salas:<br/>Proyectos · Juegos · Temas libres"]
 
     Feed --> Profile --> Tables --> Rooms
 
