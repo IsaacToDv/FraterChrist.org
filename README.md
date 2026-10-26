@@ -9,6 +9,7 @@
   <a href="#comunidad"><img alt="WhatsApp" src="https://img.shields.io/badge/WhatsApp-Comunidad-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"></a>
   <a href="#comunidad"><img alt="Discord" src="https://img.shields.io/badge/Discord-Comunidad-5865F2?style=for-the-badge&logo=discord&logoColor=white"></a>
   <a href="LICENSE"><img alt="Licencia GPL-3.0" src="https://img.shields.io/badge/Licencia-GPL--3.0-6F42C1?style=for-the-badge&logo=gnu&logoColor=white"></a>
+  <img alt="Estado del proyecto" src="https://img.shields.io/badge/Estado-Dise%C3%B1o%20y%20planificaci%C3%B3n-9B8AD6?style=for-the-badge">
 </p>
 
 <p align="center">
@@ -20,6 +21,7 @@
 
 ---
 
+> [!NOTE]
 > **Estado actual:** diseño y planificación. El desarrollo comenzará por el feed.
 
 ## ¿Qué es FraterChrist?
@@ -38,6 +40,11 @@ flowchart TD
     Rooms["Salas temáticas<br/>Juegos bíblicos · Peliculas · Temas libres"]
 
     Feed --> Profile --> Tables --> Rooms
+
+    classDef first fill:#6D28D9,stroke:#5B21B6,color:#FFFFFF,stroke-width:2px;
+    classDef next fill:#F3E8FF,stroke:#A78BFA,color:#3B0764,stroke-width:1.5px;
+    class Feed first;
+    class Profile,Tables,Rooms next;
 ~~~
 
 Las salas tendrán una experiencia propia según la actividad:
@@ -59,10 +66,20 @@ flowchart LR
     Web <-->|"Audio y video"| LK["LiveKit"]
     Web --> UI["Interfaz temática<br/>Juego · Oración · Pizarra"]
     UI --> API
+
+    classDef community fill:#F3E8FF,stroke:#A78BFA,color:#3B0764,stroke-width:1.5px;
+    classDef frontend fill:#DBEAFE,stroke:#60A5FA,color:#1E3A8A,stroke-width:1.5px;
+    classDef backend fill:#D1FAE5,stroke:#34D399,color:#064E3B,stroke-width:1.5px;
+    classDef realtime fill:#EDE9FE,stroke:#8B5CF6,color:#4C1D95,stroke-width:1.5px;
+    class People community;
+    class Web,UI frontend;
+    class API,DB backend;
+    class LK realtime;
 ~~~
 
 **LiveKit** se encargará de la conexión de audio y video en tiempo real. FraterChrist controlará quién puede entrar a cada sala y desarrollará sus herramientas específicas: los juegos, las peticiones de oración y la pizarra. El stack sigue siendo una propuesta que se validará antes de implementar cada etapa.
 
+<p align="center"><strong>Stack propuesto</strong></p>
 <p align="center">
   <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white"></a>
   <a href="https://www.djangoproject.com/"><img alt="Django REST Framework" src="https://img.shields.io/badge/Django%20REST%20Framework-A30000?style=flat-square&logo=django&logoColor=white"></a>
@@ -77,14 +94,14 @@ flowchart LR
 ## Participa
 
 <details>
-<summary><strong>Solo quiero conocer el proyecto</strong></summary>
+<summary>👀 <strong>Solo quiero conocer el proyecto</strong></summary>
 
 Consulta el [roadmap](docs/ROADMAP.md) para ver lo que se piensa construir y el orden propuesto.
 Nota. Las funciones futuras son ideas de producto.
 </details>
 
 <details>
-<summary><strong>Quiero colaborar con código o documentación</strong></summary>
+<summary>🛠️ <strong>Quiero colaborar con código o documentación</strong></summary>
 
 Clona el repositorio:
 
@@ -104,7 +121,7 @@ Antes de hacer cambios, revisa las [Issues](https://github.com/IsaacToDv/FraterC
 </details>
 
 <details>
-<summary><strong>Quiero seguir el progreso o proponer una idea</strong></summary>
+<summary>🧭 <strong>Quiero seguir el progreso o proponer una idea</strong></summary>
 
 - [Ver Issues y propuestas](https://github.com/IsaacToDv/FraterChrist.org/issues)
 - [Consultar el roadmap](docs/ROADMAP.md)
