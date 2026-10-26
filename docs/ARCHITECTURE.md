@@ -1,114 +1,124 @@
 # Arquitectura y viabilidad técnica
 
-**Estado:** propuesta para revisión. No describe una aplicación ya implementada.
+**Estado:** propuesta técnica para revisión. La aplicación todavía no está implementada y el proveedor de LiveKit sigue por decidir.
 
-## 1. Criterios de diseño
+## 1. Enfoque
 
-1. **Empezar simple:** un monolito modular antes que microservicios.
-2. **Privacidad en el servidor:** la interfaz no decide por sí sola quién puede leer contenido.
-3. **Archivos separados de los datos relacionales:** PostgreSQL guarda metadatos; los binarios viven en almacenamiento de objetos.
-4. **Calidad desde el comienzo:** pruebas para permisos y flujos críticos, análisis estático y CI.
-5. **Decisiones reversibles:** no elegir proveedor de hosting, video en vivo o infraestructura de pago antes de validar necesidades y presupuesto.
-6. **Evidencia antes de escalar:** medir rendimiento y costos antes de incorporar cachés, colas o servicios adicionales.
+- Empezar con un monolito modular, no microservicios.
+- Mantener la lógica de producto y los permisos en el backend de FraterChrist.
+- Usar LiveKit para la infraestructura de audio/video en tiempo real, sin reinventar transporte WebRTC.
+- Construir en React las interfaces que hacen que cada sala tenga un propósito distinto.
+- Persistir en PostgreSQL el contenido y estado que deba sobrevivir a una sesión.
+- No añadir infraestructura de alto costo antes de validar uso, seguridad y presupuesto.
 
-## 2. Stack recomendado para iniciar
+## 2. Stack propuesto
 
-| Capa | Elección | Motivo y condiciones |
+| Capa | Tecnología | Responsabilidad |
 |---|---|---|
-| Lenguaje backend | Python 3.13 | Ecosistema amplio y adecuado para un proyecto colaborativo. Verificar el último parche compatible al crear el entorno. |
-| Backend/API | Django 5.2 LTS + Django REST Framework 3.18.x | ORM, migraciones, autenticación, panel de administración y API en un stack conocido. La compatibilidad del DRF con Django 5.2 está documentada oficialmente. Fijar las versiones exactas al iniciar el ciclo técnico. |
-| Base de datos | PostgreSQL 17 | Datos relacionales, restricciones e índices; rama mantenida y compatible con Django. Registrar la versión usada en desarrollo y pruebas. |
-| Frontend | React + TypeScript + Vite | Separación clara de interfaz y API, tipos estáticos y ciclo de desarrollo rápido. Es una SPA inicial; la necesidad de SEO/SSR para publicaciones públicas debe validarse antes de cerrar su estructura. |
-| API | REST versionada, contrato OpenAPI | Favorece una integración explícita entre frontend y backend y hace más comprensibles las contribuciones. Seleccionar la herramienta de esquema cuando se valide su compatibilidad con el stack. |
-| Calidad backend | pytest-django y Ruff | Pruebas de lógica/permisos, formato y linting consistente. |
-| Calidad frontend | TypeScript, ESLint, Vitest y pruebas de componentes | Comprobaciones de tipos, convenciones y pruebas del comportamiento esencial. |
-| Automatización | GitHub Actions | Ejecutar comprobaciones en los pull requests; no publicar una versión que no pase las verificaciones. |
-| Entorno local | Docker Compose | Reproducir servicios de desarrollo sin exigir una infraestructura compleja. No presupone que producción vaya a usar contenedores orquestados. |
-| Medios | Disco privado local en desarrollo; almacenamiento de objetos en producción | No guardar imágenes/videos binarios en PostgreSQL ni exponer archivos privados mediante URLs públicas predecibles. El proveedor se decidirá por costo, controles de acceso y límites. |
+| Backend/API | Python, Django y Django REST Framework | Autenticación, publicaciones, permisos, mesas, salas y reglas de negocio. |
+| Base de datos | PostgreSQL | Cuentas, publicaciones, relaciones, membresías, peticiones y estado persistente. |
+| Frontend | React y TypeScript | Feed, perfiles, mesas y experiencias temáticas. |
+| SDK de navegador | livekit-client | Conectar el navegador a una sala, administrar participantes y publicar/recibir audio y video. |
+| Componentes React | @livekit/components-react y estilos opcionales @livekit/components-styles | Primitivas para conexión/estado de sala y controles reutilizables; el diseño visual final seguirá siendo propio. |
+| SDK del servidor | livekit-api para Python | Generar tokens de acceso y utilizar las APIs de salas/participantes desde el backend. |
+| Servicio de medios | LiveKit Cloud o servidor LiveKit autohospedado | Señalización, conexión de participantes y transporte de medios en tiempo real. La opción final requiere comparar costo y operación. |
+| Calidad | Pruebas backend/frontend, linting y GitHub Actions | Detectar errores, validar permisos y revisar cambios. |
+| Entorno local | Docker Compose si ayuda a reproducir el entorno | Levantar los servicios de desarrollo con instrucciones repetibles. |
 
-### Compatibilidad y ciclo de soporte
+Paquetes y documentación oficiales:
+- [LiveKit JavaScript/TypeScript SDK](https://github.com/livekit/client-sdk-js)
+- [LiveKit React quickstart](https://docs.livekit.io/transport/sdk-platforms/react/)
+- [Paquete Python livekit-api](https://docs.livekit.io/reference/python/livekit/api/)
+- [APIs de salas](https://docs.livekit.io/reference/other/roomservice-api/)
+- [Tokens y permisos](https://docs.livekit.io/frontends/reference/tokens-grants/)
 
-La revisión de documentación oficial realizada el **25 de octubre de 2026** confirma que Django REST Framework 3.18.x admite Django 5.2 y que Django 5.2 es una rama LTS con soporte extendido previsto hasta abril de 2028. Esta combinación es una base conservadora para iniciar; se debe verificar el último parche antes de crear el entorno.
+Las dependencias exactas se fijarán en el ciclo de implementación después de revisar versiones estables y compatibilidad entre paquetes. Esta tabla describe una propuesta, no paquetes ya instalados.
 
-Django 6.2 LTS aparece en la hoja de ruta oficial para abril de 2027. Si la implementación comienza después de su publicación, comparar esa versión y su compatibilidad con DRF antes de fijar las dependencias. No actualizar por número de versión sin ejecutar la suite de pruebas.
-
-Fuentes oficiales:
-- [Versiones y soporte de Django](https://www.djangoproject.com/download/)
-- [Compatibilidad y notas de Django REST Framework](https://www.django-rest-framework.org/community/release-notes/)
-- [Política de versiones de PostgreSQL](https://www.postgresql.org/support/versioning/)
-- [Guía oficial de Vite](https://vite.dev/guide/)
-- [React: construir una app desde cero](https://react.dev/learn/build-a-react-app-from-scratch)
-
-## 3. Arquitectura lógica
+## 3. Vista general de componentes
 
 ~~~mermaid
-flowchart LR
-    Browser[Browser] --> Web[React + TypeScript]
-    Web -->|HTTPS / JSON| API[Django REST Framework]
-    API --> Accounts[Accounts]
-    API --> Feed[Feed and replies]
-    API --> Moderation[Reports and moderation]
-    API --> Media[Media access control]
-    Accounts --> DB[(PostgreSQL)]
+flowchart TB
+    User[Usuario] --> UI[Interfaz React + TypeScript]
+    UI -->|HTTPS / JSON| API[Django REST Framework]
+    API --> Auth[Cuenta y permisos]
+    API --> Feed[Feed y publicaciones]
+    API --> Groups[Mesas y salas FraterChrist]
+    Auth --> DB[(PostgreSQL)]
     Feed --> DB
-    Moderation --> DB
-    Media --> DB
-    Media --> Store[(Private object storage)]
+    Groups --> DB
+    API -->|Token restringido| UI
+    API -->|livekit-api: tokens y Room Service| LK[LiveKit Cloud o servidor propio]
+    UI <-->|livekit-client: audio / video / eventos en tiempo real| LK
+    UI --> Themes[UI temática de la sala]
+    Themes --> Game[Juego bíblico]
+    Themes --> Prayer[Petición de oración / modo silencio]
+    Themes --> Board[Pizarra libre]
+    Game --> API
+    Prayer --> API
+    Board --> API
 ~~~
 
-Los módulos son límites de código dentro de una aplicación, no servicios independientes. Al inicio pueden compartir el mismo despliegue backend y la misma base de datos.
+LiveKit y FraterChrist tienen responsabilidades diferentes:
 
-## 4. Decisiones técnicas
+- **LiveKit** transporta audio/video, gestiona la conexión de participantes y expone APIs para administrar salas.
+- **Django** decide quién puede crear, encontrar y entrar a una sala y qué acciones tiene permitidas.
+- **React** implementa la interfaz, la navegación y el diseño específico para cada modalidad.
+- **PostgreSQL** conserva las entidades y los datos que deban seguir existiendo al terminar la llamada.
 
-### Autenticación y sesiones
+## 4. Flujo de entrada a una sala
 
-**Propuesta inicial:** usar autenticación basada en sesión/cookies de Django, protección CSRF y cookies HttpOnly/Secure en producción. Preferir servir frontend y API bajo el mismo origen mediante proxy o rutas como /api, para reducir complejidad de CORS y cookies de terceros. No almacenar tokens de sesión en localStorage.
+1. El usuario elige una sala y el tipo de experiencia.
+2. El cliente envía una solicitud autenticada al backend.
+3. Django verifica que la sala exista, que el usuario pueda entrar y qué capacidades se le conceden.
+4. El backend genera un token de acceso LiveKit firmado en el servidor, con identidad opaca y permisos limitados a la sala adecuada.
+5. El cliente recibe únicamente la URL del servidor LiveKit y el token individual, y conecta el SDK.
+6. React presenta los controles y módulos de la sala; al salir, la app limpia el estado local y registra las acciones de producto necesarias.
 
-Esta decisión se confirmará mediante un prototipo que cubra inicio/cierre de sesión, CSRF, cookies, despliegue local y permisos. Si el proyecto incorpora clientes móviles u otras integraciones, evaluar la estrategia entonces.
+El secreto de la API de LiveKit y cualquier credencial de servidor deben permanecer en variables de entorno protegidas del backend. No se deben incluir en el bundle del frontend, documentación pública, logs ni repositorio.
 
-### Publicaciones y permisos
+LiveKit registra los nombres/identidades de salas y participantes en logs/telemetría. Usar identificadores internos no sensibles —por ejemplo, UUIDs—, no correos, nombres reales ni otra información personal. La API de FraterChrist debe comprobar los permisos antes de entregar un token; ocultar un botón en React no es autorización.
 
-- La API debe comprobar permisos en cada operación de lectura, creación, modificación y borrado.
-- Los niveles de visibilidad iniciales propuestos son public, members y private.
-- Las respuestas deben heredar la política de la publicación raíz; una ruta alternativa no debe permitir saltarse esa regla.
-- Incluir reportes y herramientas básicas de moderación antes de una beta comunitaria abierta.
+## 5. Salas temáticas: qué aporta cada capa
 
-### Imágenes y videos
+### Base compartida
 
-La subida de archivos es una superficie de riesgo. Antes de habilitar imágenes, documentar límites de tamaño, tipos permitidos, comprobación del contenido real (no confiar solo en la cabecera Content-Type), nombres generados por la aplicación, permisos de lectura y ubicación no ejecutable/aislada. Aplicar los límites tanto en la aplicación como en el proxy o servidor web.
+Todas las modalidades reutilizarán el flujo de acceso a la sala, el estado de la conexión, la lista de participantes, los controles de micrófono/cámara, la salida y los mecanismos de reporte. LiveKit ofrece la conectividad y componentes de base; FraterChrist decide el producto y el aspecto visual.
 
-- Primero: imágenes con límites y acceso validado.
-- Después: video, si la comunidad lo necesita y se puede operar de forma responsable.
-- Antes de video: validar cuotas, consumo de ancho de banda, almacenamiento, eliminación, moderación y necesidad de miniaturas/transcodificación.
+### Juego bíblico
 
-Referencia: [OWASP File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html) y [seguridad de Django](https://docs.djangoproject.com/en/5.2/topics/security/).
+La interfaz propia permitirá crear y participar en actividades educativas. FraterChrist tendrá que definir el modelo de juego, preguntas, respuestas, validación, puntajes y permisos de anfitrión. LiveKit podrá transportar audio/video y, si el prototipo lo justifica, eventos de baja latencia mediante sus canales de datos. Las respuestas y resultados oficiales deben ser validados por el backend, no aceptados ciegamente desde el navegador.
 
-### Funciones en tiempo real
+### Oración
 
-Chat, voz, videollamadas, pizarras y salas compartidas quedan fuera del primer MVP. Antes de construirlas, preparar una decisión de arquitectura que compare soluciones gestionadas frente a WebRTC, señalización, TURN, moderación, escalabilidad y costos. No añadir Redis, Celery ni microservicios solo por anticipación.
+La vista será deliberadamente minimalista. El modo silencio se implementará como una experiencia clara de controles de micrófono y estado de participación; no debe fingir que una persona está silenciada cuando su pista de audio sigue publicada. La hoja de peticiones y sus reglas de visibilidad serán funciones de FraterChrist respaldadas por el backend y la base de datos.
 
-### Indexación y páginas públicas
+Las peticiones de oración pueden incluir información sensible. Antes de habilitarlas se deben decidir visibilidad por defecto, audiencia, edición, borrado, conservación y reporte.
 
-Vite entrega una SPA como punto de partida, pero puede no resolver por sí solo todas las necesidades de SEO y vistas previas para publicaciones públicas. En el ciclo de descubrimiento se debe decidir si el contenido público necesita indexación por buscadores y tarjetas enriquecidas al compartir. Si es requisito del producto, comparar renderizado del lado del servidor o generación estática antes de desarrollar la navegación completa.
+### Sala libre y pizarra
 
-## 5. No añadir por defecto
+LiveKit facilitará la videollamada. La pizarra será una funcionalidad separada de la interfaz: habrá que decidir cómo sincronizar trazos, cómo autorizarlos y si se guardarán para continuar luego. Los eventos efímeros pueden probarse con canales de datos de LiveKit; para historial persistente, el backend deberá validar y guardar el estado.
 
-No formar parte de la base inicial salvo que una necesidad real lo requiera:
+## 6. Decisiones a validar antes de implementar salas
 
-- Microservicios o Kubernetes.
-- Redis y colas de tareas.
-- Recomendaciones algorítmicas.
-- Almacenamiento o transcodificación de video propia.
-- Analítica invasiva o seguimiento innecesario.
-- Servicios de pago sin evaluar primero opciones gratuitas/abiertas, privacidad y costos de salida.
+1. **LiveKit Cloud frente a self-hosting.** Comparar límites, costo estimado, región, mantenimiento, actualizaciones y necesidad de observabilidad antes de una beta.
+2. **Prototipo técnico.** Conectar dos navegadores con token emitido por Django, comprobar permisos, micrófono/cámara, reconexión y salida.
+3. **Permisos y moderación.** Definir anfitrión, entrada, expulsión, bloqueo, reportes y tratamiento de participantes desconectados.
+4. **Datos y privacidad.** Definir qué se guarda de las mesas, juegos, peticiones y pizarras, quién lo puede ver y cuánto tiempo se conserva.
+5. **Costo y abuso.** Establecer duración, tamaño máximo de salas, límites de creación y controles contra uso automatizado.
+6. **Accesibilidad.** Probar teclado, subtítulos cuando proceda, controles visibles y alternativas para personas que no puedan usar cámara o micrófono.
 
-## 6. Decisiones pendientes antes de implementar
+No se deben publicar salas comunitarias abiertas antes de validar estos requisitos.
 
-1. ¿Qué páginas y publicaciones serán visibles sin sesión y necesitan indexación?
-2. ¿Qué datos mínimos requiere el registro y qué política de conservación/eliminación se aplicará?
-3. ¿Qué reglas de convivencia, reporte, apelación y moderación necesita la primera beta?
-4. ¿Qué límites iniciales tendrán las imágenes y qué proveedor de almacenamiento permite cubrirlos sin costo sorpresa?
-5. ¿Dónde se desplegará la primera beta y cómo se harán respaldos y restauraciones?
-6. ¿Qué requisitos legales y de privacidad corresponden a los territorios y edades de las personas usuarias?
+## 7. Seguridad de archivos y publicaciones
 
-Cada decisión importante se anotará en un registro breve: contexto, opciones, decisión, consecuencias y fecha. Resolver estas preguntas por etapas evita presentar una propuesta como arquitectura ya validada en producción.
+El feed de fotos/videos requiere límites de tamaño, validación del contenido real (no confiar solo en la cabecera Content-Type), nombres generados por la aplicación, almacenamiento privado y comprobaciones de acceso en servidor. Los binarios no se guardarán en PostgreSQL; la base conservará sus referencias y metadatos.
+
+Referencia: [OWASP File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html).
+
+## 8. Complejidad que no se añade todavía
+
+No incorporar microservicios, Kubernetes, Redis, colas, infraestructura de video propia, transcodificación ni una plataforma de juegos independiente por anticipado. LiveKit se evaluará como un servicio separado de medios; el resto de la aplicación se mantendrá modular hasta que el uso y las mediciones justifiquen crecer.
+
+## 9. Criterio de viabilidad
+
+La arquitectura se considerará suficientemente validada para la siguiente etapa cuando exista un prototipo pequeño que conecte dos participantes, emita tokens desde el backend, aplique permisos de entrada, y documente costo aproximado y operación de LiveKit Cloud o de la alternativa autohospedada. Después se podrá construir la interfaz temática sobre esa base.
