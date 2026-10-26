@@ -46,6 +46,8 @@ Las salas tendrán una experiencia propia según la actividad:
 - **Oración:** interfaz minimalista, modo silencio y hoja de peticiones.
 - **Sala libre:** videollamada y pizarra compartida.
 
+---
+
 ## Cómo se conecta
 
 ~~~mermaid
@@ -69,6 +71,8 @@ flowchart LR
   <a href="https://www.typescriptlang.org/"><img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"></a>
   <a href="https://livekit.io/"><img alt="LiveKit" src="https://img.shields.io/badge/LiveKit-Audio%20%2F%20Video-6B4EFF?style=flat-square&logo=webrtc&logoColor=white"></a>
 </p>
+
+---
 
 ## Participa
 
