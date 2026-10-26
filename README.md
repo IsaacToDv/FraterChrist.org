@@ -34,17 +34,18 @@ El desarrollo se plantea como un recorrido: primero el feed; después, los espac
 
 ~~~mermaid
 flowchart LR
-    Feed["Feed · Primera etapa<br/>Hilos · Fotos · Videos"]
-    Profile["Perfil"]
+    Feed["Feed<br/>Hilos · Fotos · Videos"]
+    Profile["Perfil<br/>Perfiles temáticos"]
     Tables["Mesas<br/>Oración · Estudio bíblico"]
-    Rooms["Salas temáticas<br/>Juegos bíblicos · Peliculas · Temas libres"]
+    Rooms["Salas temáticas<br/>Juegos · Películas · Temas libres"]
 
     Feed --> Profile --> Tables --> Rooms
 
-    classDef first fill:#E5EAF0,stroke:#9AA7B5,color:#273444,stroke-width:1.5px;
-    classDef next fill:#F5F6F8,stroke:#C6CDD5,color:#374151,stroke-width:1px;
+    classDef first fill:#E9EDF2,stroke:#AAB4C0,color:#273444,stroke-width:1.5px;
+    classDef next fill:#F7F8FA,stroke:#D0D5DC,color:#374151,stroke-width:1px;
     class Feed first;
     class Profile,Tables,Rooms next;
+    linkStyle default stroke:#AAB4C0,stroke-width:1.5px;
 ~~~
 
 Las salas tendrán una experiencia propia según la actividad:
